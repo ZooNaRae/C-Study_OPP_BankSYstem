@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstring>
 
 /* 통장의 계좌번호는 중복지 않는다는 가정.
    입금 및 출금금액은 무조건 0보다 크다는 가정
@@ -14,6 +13,8 @@ void accountOpen();
 void deposit();
 void withdraw();
 void allAccountInfo();
+
+using namespace std;
 
 int client_count = 0;
 
@@ -38,8 +39,8 @@ void menu()
 	{
 		system("cls");
 		printMenu();
-		scanf("%d", &choice);
-		if(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5)
+		cin>>choice;
+		if(choice == 1 || choice == 2 || choice == 3 || choice == 4 || choice == 5)//얘 switch defalt로 하는거랑 차이가 뭘까?
 		{
 			switch(choice)
 			{
@@ -67,26 +68,26 @@ void menu()
 
 void printMenu()
 {
-	printf("-------Menu--------\n");
-	printf("1. 계좌개설\n");
-	printf("2. 입 금\n");
-	printf("3. 출 금\n");
-	printf("4. 계좌정보 전체 출력\n");
-	printf("5. 프로그램 종료\n");
+	cout<<"-------Menu--------"<<endl;
+	cout<<"1. 계좌개설"<<endl;
+	cout<<"2. 입 금"<<endl;
+	cout<<"3. 출 금"<<endl;
+	cout<<"4. 계좌정보 전체 출력"<<endl;
+	cout<<"5. 프로그램 종료"<<endl;
 }
 
 void accountOpen()
 {
 	if(client_count == 10)
 	{
-		printf("새로운 계좌를 만들 수 없습니다.\n");
+		cout<<"새로운 계좌를 만들 수 없습니다."<<endl;
 	}
 	else
 	{
 		printf("새로 만들 계좌의 번호를 입력하세요.\n");
 		scanf("%d", &clientNum[client_count].accountNum);
 		printf("이름을 입력하세요.\n");
-		scanf("%s", &clientNum[client_count].name);
+		cin>>clientNum[client_count].name;
 		printf("예금 금액을 입력하세요. (예금을 원하지 않으시면 0을 입력하세요.)\n");
 		scanf("%d", &clientNum[client_count].money);
 		printf("%s님이 개설하신 계좌의 번호는 %d이며, 현재 예치금은 %d원 입니다.", clientNum[client_count].name, clientNum[client_count].accountNum,
@@ -117,11 +118,12 @@ void deposit()
 			printf("%d의 계좌번호는 존재하지 않는 번호입니다.\n", accNum);
 		}
 	}
-	getchar();
+	fflush(stdin);
 	getchar();
 }
 
-void withdraw()
+
+void withdraw()//잔액부족 추가할것
 {
 	int accNum, i, withdraw;
 	printf("출금 할 계좌번호를 입력하세요\n");
@@ -158,3 +160,4 @@ void allAccountInfo()
 	getchar();
 	getchar();
 }
+//fflush(stdin);
